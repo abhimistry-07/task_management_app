@@ -14,7 +14,7 @@ taskRouter.post('/addTask', async (req, res) => {
         const newTask = {
             title,
             description,
-            completed: false,
+            completed,
             priority,
             user: req.user._id
         };

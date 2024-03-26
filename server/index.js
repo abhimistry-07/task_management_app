@@ -4,10 +4,12 @@ const userRouter = require('./routes/userRoutes');
 const taskRouter = require('./routes/taskRoute');
 const authenticate = require('./middlewares/authMiddleware');
 const app = express();
+const cors = require('cors');
 
 require('dotenv').config();
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.send('Task Management App');

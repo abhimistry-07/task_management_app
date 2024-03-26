@@ -1,8 +1,17 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const userModel = require('../models/userModel');
+const jwt = require('jsonwebtoken');
 
 const userRouter = express.Router();
+
+const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '5d'
+    });
+};
+
+require('dotenv').config();
 
 userRouter.post('/register', async (req, res) => {
 
@@ -34,7 +43,7 @@ userRouter.post('/register', async (req, res) => {
         const isUserExist = await userModel.findOne({ email });
 
         if (isUserExist) {
-            return res.status(422).send({ message: "User already exists" })
+            return res.status(422).send({ message: "User already exists!" })
         }
 
         const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])(?=.*[a-zA-Z]).{8,}$/;
@@ -55,6 +64,41 @@ userRouter.post('/register', async (req, res) => {
         res.status(500).send({ message: 'Internal server error.', error });
     }
     console.log(req.body);
+});
+
+userRouter.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        if (!email && !password) {
+            return res.status(400).send({ message: 'Please fill all fields!' })
+        }
+
+        const user = await userModel.findOne({ email });
+
+        if (!user) {
+            return res.status(401).send({ message: 'User not found! Please register your self.' });
+        }
+
+        const verifyPassword = await bcrypt.compare(password, user.password);
+
+        if (user && verifyPassword) {
+            const id = user._id;
+            const token = jwt.sign({ id }, process.env.JWT_SECRET, {
+                expiresIn: '5d'
+            });
+
+            return res.status(200).json({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                token
+            });
+        } else {
+            return res.status(401).send({ "msg": "Wrong password!" })
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Error login.', error });
+    }
 });
 
 module.exports = userRouter;

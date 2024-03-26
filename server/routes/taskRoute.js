@@ -50,4 +50,17 @@ taskRouter.put('/updateTask/:taskId', async (req, res) => {
     }
 });
 
+taskRouter.delete('/deleteTask/:taskId', async (req, res) => {
+
+    const taskId = req.params.taskId;
+
+    try {
+        await taskModel.findByIdAndDelete(taskId);
+        res.status(200).send({ message: 'Task deleted successfully!' })
+    } catch (error) {
+        console.error('Error updating task:', error);
+        res.status(500).send({ error: error.message });
+    }
+})
+
 module.exports = taskRouter;

@@ -27,4 +27,27 @@ taskRouter.post('/addTask', async (req, res) => {
     }
 });
 
+taskRouter.put('/updateTask/:taskId', async (req, res) => {
+    const taskId = req.params.taskId;
+    const { title, description, completed, priority } = req.body;
+
+    try {
+
+        if (req.user._id != req.body.user) {
+            return res.status(400).send('You are not allowed to update others task.');
+        };
+
+        const taskToUpdate = {
+            ...req.body,
+        };
+
+        const updateTask = await taskModel.findByIdAndUpdate(taskId, taskToUpdate);
+
+        res.status(200).send({ message: 'Task updated successfully', updateTask });
+    } catch (error) {
+        console.error('Error updating task:', error);
+        res.status(500).send({ error: error.message });
+    }
+});
+
 module.exports = taskRouter;

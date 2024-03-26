@@ -1,6 +1,8 @@
 const express = require('express');
 const connectDB = require('./db');
 const userRouter = require('./routes/userRoutes');
+const taskRouter = require('./routes/taskRoute');
+const authenticate = require('./middlewares/authMiddleware');
 const app = express();
 
 require('dotenv').config();
@@ -12,6 +14,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/user', userRouter);
+
+app.use('/task', authenticate, taskRouter);
 
 app.listen(process.env.PORT, async () => {
     try {

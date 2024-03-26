@@ -5,12 +5,6 @@ const jwt = require('jsonwebtoken');
 
 const userRouter = express.Router();
 
-const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '5d'
-    });
-};
-
 require('dotenv').config();
 
 userRouter.post('/register', async (req, res) => {

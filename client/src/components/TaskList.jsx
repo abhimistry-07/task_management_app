@@ -4,6 +4,7 @@ import { deleteTask, getUserTasks } from "../redux/taskReducer/action";
 import AddTaskForm from "./AddTaskForm";
 import { login } from "../redux/authReducer/action";
 import GridLoader from "react-spinners/GridLoader";
+import { useSearchParams } from "react-router-dom";
 
 function TaskList() {
   const allTasks = useSelector((store) => store.taskReducer.allTasks);
@@ -12,6 +13,13 @@ function TaskList() {
   const [isUpdateTask, setIsUpdateTask] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [currentTask, setCurrentTask] = useState({});
+  const [filteredTask, setFilteredTask] = useState([]);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  let params = {
+    priority: searchParams.getAll("selectedPriority"),
+  };
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -49,6 +57,22 @@ function TaskList() {
     fetchData();
   }, [isUpdateTask]);
 
+  useEffect(() => {
+    if (params.priority) {
+      let filter = allTasks.filter(
+        (task) =>
+          task.priority.toLowerCase() == params.priority[0].toLowerCase()
+      );
+
+      setFilteredTask(filter);
+      // console.log(params.priority[0]);
+    }
+  }, [searchParams]);
+
+  const tasksToRender = filteredTask.length !== 0 ? filteredTask : allTasks;
+
+  // console.log(tasksToRender, "tasksToRender");
+
   return (
     <div>
       {isLoading ? (
@@ -65,7 +89,7 @@ function TaskList() {
           <GridLoader color="#36d7b7" size={30} />
         </div>
       ) : (
-        allTasks && (
+        tasksToRender && (
           <div
             style={{
               display: "grid",
@@ -77,7 +101,7 @@ function TaskList() {
               // zIndex: 1,
             }}
           >
-            {allTasks.map((task) => (
+            {tasksToRender.map((task) => (
               <div
                 key={task._id}
                 className="p-6"

@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProfileModal from "./ProfileModal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { logOut } from "../redux/authReducer/action";
 
 function Sidebar() {
   const [showModal, setShowModal] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedPriority, setSelectedPriority] = useState("");
+
   const navigate = useNavigate();
 
   const toggleModal = () => {
@@ -16,6 +19,14 @@ function Sidebar() {
     logOut();
     navigate("/");
   };
+
+  useEffect(() => {
+    let params = {
+      selectedPriority,
+    };
+
+    setSearchParams(params);
+  }, [selectedPriority]);
 
   return (
     <div
@@ -37,9 +48,18 @@ function Sidebar() {
           style={{ objectFit: "cover" }}
         />
       </button>
-      {/* <select name="" id="">
-        <option value="">Select </option>
-      </select> */}
+      <select
+        name="selectedPriority"
+        id="selectedPriority"
+        value={selectedPriority}
+        onChange={(e) => setSelectedPriority(e.target.value)}
+        className="m-2 p-2 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-500"
+      >
+        <option value="">Filter by Priority</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
       <button onClick={handleLogOut}>Logout</button>
       <ProfileModal toggleModal={toggleModal} showModal={showModal} />
     </div>

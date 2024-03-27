@@ -95,4 +95,21 @@ userRouter.post('/login', async (req, res) => {
     }
 });
 
+userRouter.put('/update/:userId', async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        const data = {
+            ...req.body
+        };
+
+        const updateProfile = await userModel.findByIdAndUpdate(userId, data);
+
+        res.status(200).send({ message: 'Profile updated successfully', updateProfile });
+
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 module.exports = userRouter;

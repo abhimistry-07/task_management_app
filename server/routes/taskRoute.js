@@ -61,7 +61,7 @@ taskRouter.delete('/deleteTask/:taskId', async (req, res) => {
         console.error('Error updating task:', error);
         res.status(500).send({ error: error.message });
     }
-})
+});
 
 taskRouter.get('/alltasks', async (req, res) => {
 

@@ -10,9 +10,9 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const auth = useSelector((stroe) => stroe.authReducer.isAuth);
-  const errMsg = useSelector((stroe) => stroe.authReducer.errMsg);
-  const isLoading = useSelector((stroe) => stroe.authReducer.isLoading);
+  const auth = useSelector((store) => store.authReducer.isAuth);
+  const errMsg = useSelector((store) => store.authReducer.errMsg);
+  const isLoading = useSelector((store) => store.authReducer.isLoading);
 
   //   console.log(auth, errMsg, ">>>>>");
 
@@ -32,7 +32,10 @@ function Login() {
   }, [auth]);
 
   return (
-    <div className="flex flex-col bg-white p-12 rounded-lg shadow-lg">
+    <form
+      className="flex flex-col bg-white p-12 rounded-lg shadow-lg"
+      onSubmit={handleLogin}
+    >
       <h1 className="text-3xl font-bold mb-6 text-black text-left">Log In</h1>
       <input
         placeholder="Enter Email"
@@ -50,8 +53,9 @@ function Login() {
       />
       <button
         className="bg-teal-500 text-white px-4 py-2 mb-4 rounded-md w-full hover:bg-teal-700"
-        onClick={handleLogin}
-        disabled={loading}
+        // onClick={handleLogin}
+        disabled={isLoading}
+        type="submit"
       >
         {isLoading ? "Loading..." : "Log In"}
       </button>
@@ -61,7 +65,7 @@ function Login() {
       >
         Sign-up
       </button>
-    </div>
+    </form>
   );
 }
 

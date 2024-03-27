@@ -51,25 +51,23 @@ function TaskList() {
   };
 
   useEffect(() => {
-    // let data = JSON.parse(localStorage.getItem("user"));
-    // dispatch(login(data));
-
     fetchData();
   }, [isUpdateTask]);
 
   useEffect(() => {
-    if (params.priority) {
-      let filter = allTasks.filter(
-        (task) =>
-          task.priority.toLowerCase() == params.priority[0].toLowerCase()
+    const priorityFilter = searchParams.get("selectedPriority");
+
+    if (priorityFilter) {
+      const filtered = allTasks.filter(
+        (task) => task.priority.toLowerCase() === priorityFilter.toLowerCase()
       );
-
-      setFilteredTask(filter);
-      // console.log(params.priority[0]);
+      setFilteredTask(filtered);
+    } else {
+      setFilteredTask(allTasks);
     }
-  }, [searchParams]);
+  }, [searchParams, allTasks]);
 
-  const tasksToRender = filteredTask.length !== 0 ? filteredTask : allTasks;
+  // const tasksToRender = filteredTask.length !== 0 ? filteredTask : allTasks;
 
   // console.log(tasksToRender, "tasksToRender");
 
@@ -89,7 +87,7 @@ function TaskList() {
           <GridLoader color="#36d7b7" size={30} />
         </div>
       ) : (
-        tasksToRender && (
+        filteredTask && (
           <div
             style={{
               display: "grid",
@@ -101,7 +99,7 @@ function TaskList() {
               // zIndex: 1,
             }}
           >
-            {tasksToRender.map((task) => (
+            {filteredTask.map((task) => (
               <div
                 key={task._id}
                 className="p-6"
@@ -124,7 +122,7 @@ function TaskList() {
                 <p className="mb-4 text-base text-left">{task.description}</p>
                 {/* <p>{task.priority}</p> */}
                 <div
-                  style={{ position: "absolute", bottom: "15px", left: "5%" }}
+                  style={{ position: "absolute", bottom: "24px", left: "24px" }}
                 >
                   <button
                     style={{

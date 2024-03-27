@@ -6,7 +6,12 @@ import { logOut } from "../redux/authReducer/action";
 function Sidebar() {
   const [showModal, setShowModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedPriority, setSelectedPriority] = useState("");
+
+  let initialPriority = searchParams.getAll("selectedPriority");
+
+  const [selectedPriority, setSelectedPriority] = useState(
+    initialPriority.length > 0 ? initialPriority[0] : ""
+  );
 
   const navigate = useNavigate();
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AddTaskForm from "../components/AddTaskForm";
+import TaskList from "../components/TaskList";
 
 function TaskPage() {
   const [showModal, setShowModal] = useState(false);
@@ -9,7 +10,7 @@ function TaskPage() {
   };
 
   return (
-    <div>
+    <div >
       <div style={{ position: "fixed", right: 16, bottom: 16 }}>
         <button
           className="bg-teal-500 text-white rounded-full p-2 hover:bg-teal-700"
@@ -49,6 +50,8 @@ function TaskPage() {
           </svg>
         </button>
       </div>
+
+      <TaskList />
 
       <AddTaskForm showModal={showModal} toggleModal={toggleModal} />
     </div>

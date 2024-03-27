@@ -58,85 +58,105 @@ function SignUp() {
   //     }
   //   }, [auth]);
 
+  /* body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+} */
+
   return (
-    <form
-      onSubmit={handleSignUp}
-      className="flex flex-col bg-white p-12 rounded-lg shadow-lg"
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+      }}
     >
-      <h1 className="text-3xl font-bold mb-6 text-black text-left">Sign up</h1>
-      <input
-        placeholder="Enter Name"
-        type="name"
-        className="rounded-md bg-gray-100 text-black px-4 py-2 mb-3 w-full"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        placeholder="Enter Email"
-        type="email"
-        className="rounded-md bg-gray-100 text-black px-4 py-2 mb-3 w-full"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        placeholder="Enter Password"
-        type="password"
-        className="rounded-md bg-gray-100 text-black px-4 py-2 mb-6 w-full"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button
-        className="bg-teal-500 text-white px-4 py-2 mb-4 rounded-md w-full hover:bg-teal-700"
-        // onClick={handleSignUp}
-        disabled={isLoading}
-        type="submit"
+      <form
+        onSubmit={handleSignUp}
+        style={{ minWidth: "400px", margin: "auto" }}
+        className="flex flex-col bg-white p-12 rounded-lg shadow-lg"
       >
-        {isLoading ? "Loading..." : "Sign up"}
-      </button>
-      <button
-        className="text-right mt-5 hover:cursor-pointer hover:font-bold text-black"
-        onClick={() => navigate("/login")}
-      >
-        Login
-      </button>
-      <div className="text-left">
-        <p style={{ color: hasDigit ? "green" : "red", fontSize: "14px" }}>
-          Contains a digit
-        </p>
-        <p
-          style={{
-            color: hasLowercase ? "green" : "red",
-            fontSize: "14px",
-          }}
+        <h1 className="text-3xl font-bold mb-6 text-black text-left">
+          Sign up
+        </h1>
+        <input
+          placeholder="Enter Name"
+          type="name"
+          className="rounded-md bg-gray-100 text-black px-4 py-2 mb-3 w-full"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          placeholder="Enter Email"
+          type="email"
+          className="rounded-md bg-gray-100 text-black px-4 py-2 mb-3 w-full"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          placeholder="Enter Password"
+          type="password"
+          className="rounded-md bg-gray-100 text-black px-4 py-2 mb-6 w-full"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button
+          className="bg-teal-500 text-white px-4 py-2 mb-4 rounded-md w-full hover:bg-teal-700"
+          // onClick={handleSignUp}
+          disabled={isLoading}
+          type="submit"
         >
-          Contains a lowercase letter
-        </p>
-        <p
-          style={{
-            color: hasUppercase ? "green" : "red",
-            fontSize: "14px",
-          }}
+          {isLoading ? "Loading..." : "Sign up"}
+        </button>
+        <button
+          className="text-right mt-5 hover:cursor-pointer hover:font-bold text-black"
+          onClick={() => navigate("/login")}
         >
-          Contains an uppercase letter
-        </p>
-        <p
-          style={{
-            color: hasSpecialChar ? "green" : "red",
-            fontSize: "14px",
-          }}
-        >
-          Contains a special character
-        </p>
-        <p
-          style={{
-            color: isLongEnough ? "green" : "red",
-            fontSize: "14px",
-          }}
-        >
-          At least 8 characters required
-        </p>
-      </div>
-    </form>
+          Login
+        </button>
+        <div className="text-left">
+          <p style={{ color: hasDigit ? "green" : "red", fontSize: "14px" }}>
+            Contains a digit
+          </p>
+          <p
+            style={{
+              color: hasLowercase ? "green" : "red",
+              fontSize: "14px",
+            }}
+          >
+            Contains a lowercase letter
+          </p>
+          <p
+            style={{
+              color: hasUppercase ? "green" : "red",
+              fontSize: "14px",
+            }}
+          >
+            Contains an uppercase letter
+          </p>
+          <p
+            style={{
+              color: hasSpecialChar ? "green" : "red",
+              fontSize: "14px",
+            }}
+          >
+            Contains a special character
+          </p>
+          <p
+            style={{
+              color: isLongEnough ? "green" : "red",
+              fontSize: "14px",
+            }}
+          >
+            At least 8 characters required
+          </p>
+        </div>
+      </form>
+    </div>
   );
 }
 

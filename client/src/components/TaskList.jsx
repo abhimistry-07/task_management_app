@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserTasks } from "../redux/taskReducer/action";
+import { deleteTask, getUserTasks } from "../redux/taskReducer/action";
 import AddTaskForm from "./AddTaskForm";
 
 function TaskList() {
@@ -32,6 +32,12 @@ function TaskList() {
   const taskUpdated = () => {
     setIsUpdateTask(false);
     fetchData();
+  };
+
+  const handleDelete = async (id) => {
+    await dispatch(deleteTask(id));
+    await dispatch(getUserTasks());
+    console.log(id);
   };
 
   useEffect(() => {
@@ -83,6 +89,7 @@ function TaskList() {
                   <button
                     style={{ backgroundColor: "#EF5350", color: "white" }}
                     className="p-1"
+                    onClick={() => handleDelete(task._id)}
                   >
                     Delete
                   </button>

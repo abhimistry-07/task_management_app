@@ -80,5 +80,25 @@ export const updateTask = (updatedTask) => async (dispatch) => {
         dispatch({ type: UPDATE_TASK_FAILURE });
     }
 
-    console.log(updatedTask, 'action file');
+    // console.log(updatedTask, 'action file');
 };
+
+export const deleteTask = (id) => async () => {
+
+    const data = JSON.parse(localStorage.getItem('user'));
+    const token = data.token;
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    };
+
+    try {
+        await axios.delete(`${url}/task/deleteTask/${id}`, config);
+        alert('Task deleted successfully!')
+    } catch (error) {
+        console.log(error);
+    }
+}

@@ -1,4 +1,4 @@
-import { ADD_TASK_FAILURE, ADD_TASK_REQUEST, ADD_TASK_SUCCESS, GET_TASK_FAILURE, GET_TASK_REQUEST, GET_TASK_SUCCESS } from "../actionTypes";
+import { ADD_TASK_FAILURE, ADD_TASK_REQUEST, ADD_TASK_SUCCESS, GET_TASK_FAILURE, GET_TASK_REQUEST, GET_TASK_SUCCESS, UPDATE_TASK_FAILURE, UPDATE_TASK_REQUEST, UPDATE_TASK_SUCCESS } from "../actionTypes";
 
 
 const initState = {
@@ -48,6 +48,24 @@ export const reducer = ((state = initState, action) => {
                 isError: false,
             }
         case GET_TASK_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
+            }
+        case UPDATE_TASK_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                isError: false,
+            }
+        case UPDATE_TASK_REQUEST:
+            return {
+                ...state,
+                isLoading: true,
+                isError: false,
+            }
+        case UPDATE_TASK_FAILURE:
             return {
                 ...state,
                 isLoading: false,

@@ -4,7 +4,15 @@ import styled from "styled-components";
 
 function HomePage() {
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        height: "100vh",
+      }}
+    >
       <DIV>
         <h3 className="text-3xl font-semibold mb-4">
           Welcome to Task Management App
@@ -28,11 +36,13 @@ function HomePage() {
           Signup
         </Link>
       </div>
-    </>
+    </div>
   );
 }
 
 const DIV = styled.div`
+  text-align: center;
+
   h3 {
     text-align: center;
     font-size: 2rem;

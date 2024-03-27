@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddTaskForm from "../components/AddTaskForm";
 import TaskList from "../components/TaskList";
+import Sidebar from "../components/Sidebar";
 
 function TaskPage() {
   const [showModal, setShowModal] = useState(false);
@@ -11,6 +12,18 @@ function TaskPage() {
 
   return (
     <div>
+      <div
+        style={{
+          width: "100%",
+          backgroundColor: "black",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          zIndex: 1000,
+        }}
+      >
+        <Sidebar />
+      </div>{" "}
       <div style={{ position: "fixed", right: 16, bottom: 16, zIndex: 1 }}>
         <button
           className="bg-teal-500 text-white rounded-full p-2 hover:bg-teal-700"
@@ -50,9 +63,7 @@ function TaskPage() {
           </svg>
         </button>
       </div>
-
       <TaskList />
-
       <AddTaskForm
         showModal={showModal}
         toggleModal={toggleModal}

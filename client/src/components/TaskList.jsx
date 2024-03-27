@@ -54,8 +54,10 @@ function TaskList() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
+              // gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               gap: "20px",
               margin: "20px",
+              // zIndex: 1,
             }}
           >
             {allTasks.map((task) => (

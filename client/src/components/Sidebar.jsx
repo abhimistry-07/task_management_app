@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ProfileModal from "./ProfileModal";
 import { useNavigate } from "react-router-dom";
+import { logOut } from "../redux/authReducer/action";
 
 function Sidebar() {
   const [showModal, setShowModal] = useState(false);
@@ -12,6 +13,7 @@ function Sidebar() {
 
   const handleLogOut = () => {
     localStorage.removeItem("user");
+    logOut();
     navigate("/");
   };
 

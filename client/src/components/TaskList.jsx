@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTask, getUserTasks } from "../redux/taskReducer/action";
 import AddTaskForm from "./AddTaskForm";
+import { login } from "../redux/authReducer/action";
 
 function TaskList() {
   const allTasks = useSelector((store) => store.taskReducer.allTasks);
@@ -41,6 +42,9 @@ function TaskList() {
   };
 
   useEffect(() => {
+    // let data = JSON.parse(localStorage.getItem("user"));
+    // dispatch(login(data));
+
     fetchData();
   }, []);
 
@@ -53,10 +57,11 @@ function TaskList() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              // gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              // gridTemplateColumns: "repeat(3, 1fr)",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               gap: "20px",
               margin: "20px",
+              marginTop: "80px",
               // zIndex: 1,
             }}
           >

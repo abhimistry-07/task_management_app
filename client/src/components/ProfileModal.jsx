@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import UpdateProfile from "./UpdateProfile";
 
 function ProfileModal({ toggleModal, showModal }) {
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const [showUpdateProfileModal, setShowUpdateProfileModal] = useState(false);
+
+  const toggleUpdateProfileModal = () => {
+    toggleModal();
+    setShowUpdateProfileModal(!showUpdateProfileModal);
+  };
 
   return (
     <>
@@ -78,6 +86,7 @@ function ProfileModal({ toggleModal, showModal }) {
                 <button
                   className="text-white hover:cursor-pointer mt-4"
                   style={{ backgroundColor: "#26C6DA" }}
+                  onClick={toggleUpdateProfileModal}
                 >
                   Update
                 </button>
@@ -86,6 +95,12 @@ function ProfileModal({ toggleModal, showModal }) {
           </div>
         </div>
       )}
+
+      <UpdateProfile
+        userData={user}
+        showUpdateProfileModal={showUpdateProfileModal}
+        toggleUpdateProfileModal={toggleUpdateProfileModal}
+      />
     </>
   );
 }

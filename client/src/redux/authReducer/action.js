@@ -1,4 +1,4 @@
-import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, SIGNUP_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS } from "../actionTypes";
+import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_SUCCESS, SIGNUP_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS } from "../actionTypes";
 import axios from "axios";
 
 let url = "http://localhost:8080"
@@ -55,3 +55,34 @@ export const signup = (userData) => async (dispatch) => {
         throw error;
     }
 };
+
+export const updateProfile = (userData, id) => async (dispatch) => {
+
+    // console.log(id, 'action file');
+    localStorage.setItem('user', JSON.stringify(userData));
+
+    const data = JSON.parse(localStorage.getItem('user'));
+    const token = data.token;
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    };
+
+    try {
+        const task = await axios.put(`${url}/user/update/${id}`, userData, config);
+        // console.log(task.data);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const logOut = () => (dispatch) => {
+    try {
+        dispatch({ type: LOGOUT_SUCCESS })
+    } catch (error) {
+        console.log(error);
+    }
+}

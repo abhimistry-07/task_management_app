@@ -55,19 +55,22 @@ function AddTaskForm({
 
     const data = JSON.parse(localStorage.getItem("user"));
 
-    console.log(data._id);
+    // console.log(data._id);
+    const id = currentTask._id;
+
     try {
       let updatedValue = {
-        _id: currentTask._id,
         title,
         description,
         completed,
         priority,
         user: data._id,
       };
-      disptach(updateTask(updatedValue));
+      disptach(updateTask(updatedValue, id));
       taskUpdated();
       toggleModal();
+      alert("Task updated successfully!");
+      // setResetKey((prevKey) => prevKey + 1);
     } catch (error) {
       console.log(error);
     }

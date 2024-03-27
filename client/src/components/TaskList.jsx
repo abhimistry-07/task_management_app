@@ -38,7 +38,7 @@ function TaskList() {
   const handleDelete = async (id) => {
     await dispatch(deleteTask(id));
     await dispatch(getUserTasks());
-    console.log(id);
+    // console.log(id);
   };
 
   useEffect(() => {
@@ -46,7 +46,7 @@ function TaskList() {
     // dispatch(login(data));
 
     fetchData();
-  }, []);
+  }, [isUpdateTask]);
 
   return (
     <div>
@@ -73,12 +73,13 @@ function TaskList() {
                   border: "1px solid white",
                   position: "relative",
                   paddingBottom: "60px",
+                  // maxWidth: "300px",
                 }}
               >
-                <h5 className="mb-2 text-xl font-medium leading-tight">
+                <h5 className="text-left mb-2 text-xl font-medium leading-tight">
                   {task.title}
                 </h5>
-                <p className="mb-4 text-base">{task.description}</p>
+                <p className="mb-4 text-base text-left">{task.description}</p>
                 <div
                   style={{ position: "absolute", bottom: "15px", left: "5%" }}
                 >

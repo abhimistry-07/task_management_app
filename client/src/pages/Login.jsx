@@ -14,7 +14,7 @@ function Login() {
   const errMsg = useSelector((store) => store.authReducer.errMsg);
   const isLoading = useSelector((store) => store.authReducer.isLoading);
 
-  //   console.log(auth, errMsg, ">>>>>");
+  const isLogedIn = JSON.parse(localStorage.getItem("user"));
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,10 +26,10 @@ function Login() {
   };
 
   useEffect(() => {
-    if (auth) {
+    if (isLogedIn) {
       navigate("/task");
     }
-  }, [auth]);
+  }, [isLogedIn]);
 
   return (
     <div

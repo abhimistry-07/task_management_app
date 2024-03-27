@@ -43,7 +43,7 @@ export const signup = (userData) => async (dispatch) => {
         };
 
         const response = await axios.post(`${url}/user/register`, userData, config);
-        console.log(response);
+        // console.log(response);
         dispatch({ type: SIGNUP_SUCCESS, payload: response })
 
         alert("Successfully created account.");

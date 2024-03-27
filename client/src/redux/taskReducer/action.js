@@ -57,7 +57,7 @@ export const getUserTasks = () => async (dispatch) => {
     }
 };
 
-export const updateTask = (updatedTask) => async (dispatch) => {
+export const updateTask = (updatedTask, id) => async (dispatch) => {
     dispatch({ type: UPDATE_TASK_REQUEST });
 
     const data = JSON.parse(localStorage.getItem('user'));
@@ -71,7 +71,6 @@ export const updateTask = (updatedTask) => async (dispatch) => {
     };
 
     try {
-        const id = updatedTask._id;
         const task = await axios.put(`${url}/task/updateTask/${id}`, updatedTask, config);
 
         // console.log(task.data.updateTask, '>>>>////');

@@ -17,7 +17,7 @@ export const reducer = ((state = initState, action) => {
                 isLoading: true,
             }
         case LOGIN_SUCCESS:
-            console.log(action.payload.data);
+            // console.log(action.payload.data);
             return {
                 ...state,
                 isLoading: false,
@@ -27,7 +27,7 @@ export const reducer = ((state = initState, action) => {
                 errMsg: "",
             }
         case LOGIN_FAILURE:
-            console.log(action.payload.response.data.message);
+            // console.log(action.payload.response.data.message);
             return {
                 ...state,
                 isLoading: false,

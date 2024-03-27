@@ -27,7 +27,7 @@ function Login() {
 
   useEffect(() => {
     if (auth) {
-      navigate("/");
+      navigate("/task");
     }
   }, [auth]);
 

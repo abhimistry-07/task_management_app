@@ -53,7 +53,7 @@ userRouter.post('/register', async (req, res) => {
             password: hashedPass
         });
 
-        res.status(201).send({ 'msg': 'Registration successful!', newUser });
+        res.status(201).send({ message: 'Registration successful!', newUser });
     } catch (error) {
         res.status(500).send({ message: 'Internal server error.', error });
     }
@@ -88,7 +88,7 @@ userRouter.post('/login', async (req, res) => {
                 token
             });
         } else {
-            return res.status(401).send({ "msg": "Wrong password!" })
+            return res.status(401).send({ message: "Wrong password!" })
         }
     } catch (error) {
         res.status(500).send({ message: 'Error login.', error });

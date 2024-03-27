@@ -23,7 +23,7 @@ taskRouter.post('/addTask', async (req, res) => {
 
         res.status(201).send({ message: 'Task created successfully', newTask });
     } catch (error) {
-        res.status(400).send({ error: error.message });
+        res.status(500).send({ error: error.message });
     }
 });
 
@@ -60,6 +60,19 @@ taskRouter.delete('/deleteTask/:taskId', async (req, res) => {
     } catch (error) {
         console.error('Error updating task:', error);
         res.status(500).send({ error: error.message });
+    }
+})
+
+taskRouter.get('/alltasks', async (req, res) => {
+
+    let logedInUserId = req.user._id;
+
+    try {
+        let alltasks = await taskModel.find({ user: logedInUserId });
+
+        res.status(200).send(alltasks);
+    } catch (error) {
+        res.status(500).send({ error });
     }
 })
 

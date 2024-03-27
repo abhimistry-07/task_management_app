@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteTask, getUserTasks } from "../redux/taskReducer/action";
 import AddTaskForm from "./AddTaskForm";
 import { login } from "../redux/authReducer/action";
+import GridLoader from "react-spinners/GridLoader";
 
 function TaskList() {
   const allTasks = useSelector((store) => store.taskReducer.allTasks);
@@ -51,7 +52,18 @@ function TaskList() {
   return (
     <div>
       {isLoading ? (
-        <h1>...Loading</h1>
+        <div
+          style={{
+            display: "flex",
+            height: "100vh",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            margin: "auto",
+          }}
+        >
+          <GridLoader color="#36d7b7" size={30} />
+        </div>
       ) : (
         allTasks && (
           <div
@@ -73,19 +85,26 @@ function TaskList() {
                   border: "1px solid white",
                   position: "relative",
                   paddingBottom: "60px",
-                  // maxWidth: "300px",
+                  border: "none",
+                  backgroundColor:
+                    task.priority == "low"
+                      ? "#66BB6A"
+                      : task.priority == "medium"
+                      ? "#FFA726"
+                      : "#EF5350",
                 }}
               >
                 <h5 className="text-left mb-2 text-xl font-medium leading-tight">
                   {task.title}
                 </h5>
                 <p className="mb-4 text-base text-left">{task.description}</p>
+                {/* <p>{task.priority}</p> */}
                 <div
                   style={{ position: "absolute", bottom: "15px", left: "5%" }}
                 >
                   <button
                     style={{
-                      backgroundColor: "#3949AB",
+                      backgroundColor: "#2962FF",
                       color: "white",
                       marginRight: "8px",
                     }}
@@ -95,7 +114,7 @@ function TaskList() {
                     Update
                   </button>
                   <button
-                    style={{ backgroundColor: "#EF5350", color: "white" }}
+                    style={{ backgroundColor: "#DD2C00", color: "white" }}
                     className="p-1"
                     onClick={() => handleDelete(task._id)}
                   >

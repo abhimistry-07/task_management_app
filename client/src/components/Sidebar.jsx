@@ -37,6 +37,9 @@ function Sidebar() {
           style={{ objectFit: "cover" }}
         />
       </button>
+      {/* <select name="" id="">
+        <option value="">Select </option>
+      </select> */}
       <button onClick={handleLogOut}>Logout</button>
       <ProfileModal toggleModal={toggleModal} showModal={showModal} />
     </div>

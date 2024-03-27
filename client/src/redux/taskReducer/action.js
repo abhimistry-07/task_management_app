@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_TASK_FAILURE, ADD_TASK_REQUEST, ADD_TASK_SUCCESS, GET_TASK_FAILURE, GET_TASK_REQUEST, GET_TASK_SUCCESS } from "../actionTypes";
+import { ADD_TASK_FAILURE, ADD_TASK_REQUEST, ADD_TASK_SUCCESS, GET_TASK_FAILURE, GET_TASK_REQUEST, GET_TASK_SUCCESS, UPDATE_TASK_FAILURE, UPDATE_TASK_REQUEST, UPDATE_TASK_SUCCESS } from "../actionTypes";
 
 let url = "http://localhost:8080";
 
@@ -55,4 +55,30 @@ export const getUserTasks = () => async (dispatch) => {
     } catch (error) {
         dispatch({ type: GET_TASK_FAILURE });
     }
+};
+
+export const updateTask = (updatedTask) => async (dispatch) => {
+    dispatch({ type: UPDATE_TASK_REQUEST });
+
+    const data = JSON.parse(localStorage.getItem('user'));
+    const token = data.token;
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    };
+
+    try {
+        const id = updatedTask._id;
+        const task = await axios.put(`${url}/task/updateTask/${id}`, updatedTask, config);
+
+        // console.log(task.data.updateTask, '>>>>////');
+        dispatch({ type: UPDATE_TASK_SUCCESS, payload: task.data.updateTask });
+    } catch (error) {
+        dispatch({ type: UPDATE_TASK_FAILURE });
+    }
+
+    console.log(updatedTask, 'action file');
 };

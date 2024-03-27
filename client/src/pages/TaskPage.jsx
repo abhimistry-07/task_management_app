@@ -10,8 +10,8 @@ function TaskPage() {
   };
 
   return (
-    <div >
-      <div style={{ position: "fixed", right: 16, bottom: 16 }}>
+    <div>
+      <div style={{ position: "fixed", right: 16, bottom: 16, zIndex: 1 }}>
         <button
           className="bg-teal-500 text-white rounded-full p-2 hover:bg-teal-700"
           onClick={toggleModal}
@@ -53,7 +53,11 @@ function TaskPage() {
 
       <TaskList />
 
-      <AddTaskForm showModal={showModal} toggleModal={toggleModal} />
+      <AddTaskForm
+        showModal={showModal}
+        toggleModal={toggleModal}
+        isUpdateTask={false}
+      />
     </div>
   );
 }

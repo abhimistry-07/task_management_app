@@ -1,16 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserTasks } from "../redux/taskReducer/action";
+import AddTaskForm from "./AddTaskForm";
 
 function TaskList() {
   const allTasks = useSelector((store) => store.taskReducer.allTasks);
   const isLoading = useSelector((store) => store.taskReducer.isLoading);
 
+  const [isUpdateTask, setIsUpdateTask] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [currentTask, setCurrentTask] = useState({});
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+
   const dispatch = useDispatch();
-//   console.log(allTasks, "allTasks");
+  //   console.log(allTasks, "allTasks");
+
+  const handleUpdateBtn = (task) => {
+    toggleModal();
+    setIsUpdateTask(true);
+    setCurrentTask(task);
+    // console.log(task);
+  };
+
+  const fetchData = () => {
+    dispatch(getUserTasks());
+  };
+
+  const taskUpdated = () => {
+    setIsUpdateTask(false);
+    fetchData();
+  };
 
   useEffect(() => {
-    dispatch(getUserTasks());
+    fetchData();
   }, []);
 
   return (
@@ -29,6 +54,7 @@ function TaskList() {
           >
             {allTasks.map((task) => (
               <div
+                key={task._id}
                 className="p-6"
                 style={{
                   border: "1px solid white",
@@ -50,6 +76,7 @@ function TaskList() {
                       marginRight: "8px",
                     }}
                     className="p-1"
+                    onClick={() => handleUpdateBtn(task)}
                   >
                     Update
                   </button>
@@ -73,7 +100,7 @@ function TaskList() {
                     htmlFor="completed"
                     className="ml-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Task Pending
+                    Task Pendings
                   </label>
                 </div> */}
               </div>
@@ -81,6 +108,13 @@ function TaskList() {
           </div>
         )
       )}
+      <AddTaskForm
+        showModal={showModal}
+        toggleModal={toggleModal}
+        taskUpdated={taskUpdated}
+        isUpdateTask={isUpdateTask}
+        currentTask={currentTask}
+      />
     </div>
   );
 }

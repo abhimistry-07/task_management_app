@@ -21,14 +21,17 @@ export const addNewTask = (newTask) => async (dispatch) => {
         axios.post(`${url}/task/addTask`, newTask, config)
             .then((response) => {
                 dispatch({ type: ADD_TASK_SUCCESS, payload: response.data.newTask });
+                return response.data.newTask;
             })
             .catch((error) => {
                 console.log(error, 'action');
                 dispatch({ type: ADD_TASK_FAILURE, payload: error.message });
+                throw error;
             })
     } catch (error) {
         console.log(error, 'action');
         dispatch({ type: ADD_TASK_FAILURE, payload: error.message });
+        throw error;
     }
 };
 
@@ -75,6 +78,8 @@ export const updateTask = (updatedTask, id) => async (dispatch) => {
 
         // console.log(task.data.updateTask, '>>>>////');
         dispatch({ type: UPDATE_TASK_SUCCESS, payload: task.data.updateTask });
+
+        return task;
     } catch (error) {
         dispatch({ type: UPDATE_TASK_FAILURE });
     }

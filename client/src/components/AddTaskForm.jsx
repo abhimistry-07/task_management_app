@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { addNewTask, updateTask } from "../redux/taskReducer/action";
+import {
+  addNewTask,
+  getUserTasks,
+  updateTask,
+} from "../redux/taskReducer/action";
 import { useDispatch } from "react-redux";
 
 function AddTaskForm({
@@ -18,9 +22,9 @@ function AddTaskForm({
 
   // console.log(isUpdateTask, currentTask?.description);
 
-  const disptach = useDispatch();
+  const dispatch = useDispatch();
 
-  const handleAddTask = (e) => {
+  const handleAddTask = async (e) => {
     try {
       e.preventDefault();
 
@@ -36,27 +40,34 @@ function AddTaskForm({
         priority,
       };
 
-      disptach(addNewTask(newTask));
-
+      await dispatch(addNewTask(newTask));
+      // .then(() => {
       setTitle("");
       setDescription("");
       setCompleted(false);
       setPriority("");
       alert("New task created successfully!");
       toggleModal();
+      await dispatch(getUserTasks());
+      // fetchData();
+      // taskUpdated();
       setResetKey((prevKey) => prevKey + 1);
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleUpdateTask = (e) => {
+  const handleUpdateTask = async (e) => {
     e.preventDefault();
 
     const data = JSON.parse(localStorage.getItem("user"));
 
-    // console.log(data._id);
     const id = currentTask._id;
+    console.log(id);
 
     try {
       let updatedValue = {
@@ -66,10 +77,13 @@ function AddTaskForm({
         priority,
         user: data._id,
       };
-      disptach(updateTask(updatedValue, id));
+      await dispatch(updateTask(updatedValue, id));
+      // .then(() => {
+      // });
       taskUpdated();
       toggleModal();
       alert("Task updated successfully!");
+      await dispatch(getUserTasks());
       // setResetKey((prevKey) => prevKey + 1);
     } catch (error) {
       console.log(error);

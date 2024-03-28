@@ -52,7 +52,7 @@ function TaskList() {
 
   useEffect(() => {
     fetchData();
-  }, [isUpdateTask]);
+  }, [isUpdateTask, showModal]);
 
   useEffect(() => {
     const priorityFilter = searchParams.get("selectedPriority");
@@ -65,6 +65,19 @@ function TaskList() {
     } else {
       setFilteredTask(allTasks);
     }
+
+    // const sortTask = (a, b) => {
+    //   const order = { low: 1, medium: 2, high: 3 };
+    //   return order[a.priority] - order[b.priority];
+    // };
+
+    // if (sortData === 'asc') {
+    //   filteredTask.sort(sortTask);
+    // } else if (sortData === 'desc') {
+    //   filteredTask.sort((a, b) => sortTask(b, a));
+    // }
+
+    // setFilteredTask(filteredTask);
   }, [searchParams, allTasks]);
 
   // const tasksToRender = filteredTask.length !== 0 ? filteredTask : allTasks;
@@ -95,7 +108,7 @@ function TaskList() {
               gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               gap: "20px",
               margin: "20px",
-              marginTop: "80px",
+              // marginTop: "80px",
               // zIndex: 1,
             }}
           >
@@ -108,6 +121,7 @@ function TaskList() {
                   position: "relative",
                   paddingBottom: "60px",
                   border: "none",
+                  borderRadius: "8px",
                   backgroundColor:
                     task.priority == "low"
                       ? "#66BB6A"
@@ -143,22 +157,6 @@ function TaskList() {
                     Delete
                   </button>
                 </div>
-                {/* <div className="flex items-center">
-                  <input
-                    // onChange={(e) => setCompleted(e.target.checked)}
-                    // checked={completed}
-                    type="checkbox"
-                    name="completed"
-                    id="completed"
-                    className="rounded text-primary-600 focus:ring-primary-600 dark:focus:ring-primary-500"
-                  />
-                  <label
-                    htmlFor="completed"
-                    className="ml-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Task Pendings
-                  </label>
-                </div> */}
               </div>
             ))}
           </div>

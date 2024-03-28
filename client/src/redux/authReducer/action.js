@@ -1,7 +1,9 @@
 import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_SUCCESS, SIGNUP_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS } from "../actionTypes";
 import axios from "axios";
 
-let url = "http://localhost:8080"
+const url = import.meta.env.VITE_BASEURL;
+
+// let url = "http://localhost:8080"
 
 export const login = (userData) => async (dispatch) => {
     dispatch({ type: LOGIN_REQUEST });

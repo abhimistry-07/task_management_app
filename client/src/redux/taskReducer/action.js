@@ -1,7 +1,9 @@
 import axios from "axios";
 import { ADD_TASK_FAILURE, ADD_TASK_REQUEST, ADD_TASK_SUCCESS, GET_TASK_FAILURE, GET_TASK_REQUEST, GET_TASK_SUCCESS, UPDATE_TASK_FAILURE, UPDATE_TASK_REQUEST, UPDATE_TASK_SUCCESS } from "../actionTypes";
 
-let url = "http://localhost:8080";
+const url = import.meta.env.VITE_BASEURL;
+
+// let url = "http://localhost:8080";
 
 export const addNewTask = (newTask) => async (dispatch) => {
 

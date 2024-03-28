@@ -213,7 +213,8 @@ function AddTaskForm({
                       htmlFor="completed"
                       className="ml-2 text-sm font-medium text-black-900"
                     >
-                      Task Pending
+                      {completed ? " Task Completed" : " Task Pending"}
+                     
                     </label>
                   </div>
                 </div>

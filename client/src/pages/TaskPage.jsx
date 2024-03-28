@@ -9,6 +9,7 @@ function TaskPage() {
   const [showModal, setShowModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams("");
   const [sortTasks, setSortTasks] = useState("");
+  const [taskCompleted, setTaskCompleted] = useState();
 
   let initialPriority = searchParams.getAll("selectedPriority");
 
@@ -23,13 +24,14 @@ function TaskPage() {
   useEffect(() => {
     let params = {
       selectedPriority,
+      taskCompleted,
       // sortTasks,
     };
 
-    // console.log(params);
+    console.log(params);
 
     setSearchParams(params);
-  }, [selectedPriority, sortTasks]);
+  }, [selectedPriority, sortTasks, taskCompleted]);
 
   return (
     <div>
@@ -62,6 +64,18 @@ function TaskPage() {
           <option value="medium">Medium</option>
           <option value="low">Low</option>
         </select>
+        <select
+          name="taskCompleted"
+          id="taskCompleted"
+          value={taskCompleted}
+          onChange={(e) => setTaskCompleted(e.target.value)}
+          className="ml-5 p-2 rounded-md border border-red-300 focus:outline-none focus:border-indigo-500"
+        >
+          <option value="">Filter by Task Status</option>
+          <option value="true">Completed</option>
+          <option value="false">Pending</option>
+        </select>
+
         {/* <div className="ml-10">
           <input
             name="sortTasks"

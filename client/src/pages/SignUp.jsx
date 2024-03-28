@@ -5,8 +5,8 @@ import { signup } from "../redux/authReducer/action";
 
 function SignUp() {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("jane@example.com");
-  const [password, setPassword] = useState("Qwer@1234");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

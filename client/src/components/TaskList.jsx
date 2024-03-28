@@ -58,45 +58,6 @@ function TaskList() {
     fetchData();
   }, [isUpdateTask, showModal]);
 
-  // useEffect(() => {
-  //   const priorityFilter = searchParams.get("selectedPriority");
-  //   const statusFilter = searchParams.get("taskCompleted");
-
-  //   console.log(statusFilter);
-
-  //   if (priorityFilter) {
-  //     const filtered = allTasks.filter(
-  //       (task) => task.priority.toLowerCase() === priorityFilter.toLowerCase()
-  //     );
-  //     setFilteredTask(filtered);
-  //   } else {
-  //     setFilteredTask(allTasks);
-  //   }
-
-  //   if (statusFilter != undefined) {
-  //     const statusFilteredData = filteredTask.filter(
-  //       (task) => task.taskCompleted == statusFilter
-  //     );
-  //     setFilteredTask(statusFilteredData);
-  //   }
-  //   // else {
-  //   //   setFilteredTask();
-  //   // }
-
-  //   // const sortTask = (a, b) => {
-  //   //   const order = { low: 1, medium: 2, high: 3 };
-  //   //   return order[a.priority] - order[b.priority];
-  //   // };
-
-  //   // if (sortData === 'asc') {
-  //   //   filteredTask.sort(sortTask);
-  //   // } else if (sortData === 'desc') {
-  //   //   filteredTask.sort((a, b) => sortTask(b, a));
-  //   // }
-
-  //   // setFilteredTask(filteredTask);
-  // }, [searchParams, allTasks]);
-
   useEffect(() => {
     const priorityFilter = searchParams.get("selectedPriority");
     const statusFilter = searchParams.get("taskCompleted");

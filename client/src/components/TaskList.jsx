@@ -64,7 +64,7 @@ function TaskList() {
 
     let filteredData = [...allTasks];
 
-    if (priorityFilter.length > 0) {
+    if (priorityFilter) {
       filteredData = filteredData.filter((task) =>
         priorityFilter.includes(task.priority.toLowerCase())
       );
@@ -81,10 +81,10 @@ function TaskList() {
       setFilteredTask(filteredData);
     }
 
-    if (!priorityFilter.length > 0 && statusFilter == "undefined") {
-      console.log("in");
-      setFilteredTask(allTasks);
-    }
+    // if (!priorityFilter && statusFilter == "undefined") {
+    //   console.log("in");
+    //   setFilteredTask(allTasks);
+    // }
 
     setFilteredTask(filteredData);
   }, [searchParams, allTasks]);

@@ -4,6 +4,7 @@ import TaskList from "../components/TaskList";
 import Sidebar from "../components/Sidebar";
 import AddTaskBtn from "../components/AddTaskBtn";
 import { useSearchParams } from "react-router-dom";
+import "../App.css";
 
 function TaskPage() {
   const [showModal, setShowModal] = useState(false);
@@ -48,10 +49,8 @@ function TaskPage() {
         <Sidebar />
       </div>{" "}
       <AddTaskBtn toggleModal={toggleModal} />
-      <div
-        className="mt-20"
-        style={{ display: "flex", gap: "20px", alignItems: "center" }}
-      >
+      {/* // style={{ display: "flex", gap: "20px", alignItems: "center" }} */}
+      <div className="mt-20 smallScreen">
         <select
           name="selectedPriority"
           id="selectedPriority"

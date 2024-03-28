@@ -13,7 +13,7 @@ function AllRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
       <Route
-        path="/task"
+        path="/task/:selectedPriority?/:taskCompleted?"
         element={
           <PrivateRoute>
             <TaskPage />
